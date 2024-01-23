@@ -16,8 +16,8 @@ plt.switch_backend('Agg')
 
 #Some global data and the dataset
 k_values = [i for i in range(3, 13)]
-path = "D:\\Original-comp-edisk\\class material\\Professional Development\\knn showcase\\" #Use your own path
-data = pd.read_csv(path + "datapoints.csv") #Use your own path
+
+data = pd.read_csv(datapoints.csv") #Use your own path
 
 #Calculate distance
 def cal_distance(pointA, pointB):
