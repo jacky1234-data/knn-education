@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<title>KNN Educational Demonstration Project</title>
+	<link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+	<header>
+		<h1>Welcome to KNN Educational Demonstration Project</h1>
+		<h4>
+			<p>	
+				Welcome to our K-Nearest Neighbors (KNN) Educational Demonstration Project! 
+				Dive into the world of pattern recognition and classification with this interactive showcase of the KNN algorithm. 
+				Whether you're a student, educator, or a data enthusiast, this project offers a hands-on experience to understand how KNN operates in real-time. 
+			</p>
+			<p>
+				Discover the principles of supervised learning and observe how KNN can classify data points based on their proximity. 
+				Our user-friendly interface creates an immersive learning environment, 
+				making the concepts of distance metrics and decision boundaries easy to understand.
+			</p>
+			<p>If you want to learn more, please check out <a href = "https://www.analyticsvidhya.com/blog/2018/03/introduction-k-neighbours-algorithm-clustering/#:~:text=The%20K%2DNearest%20Neighbors
+				%20(KNN)%20algorithm%20is%20a%20popular,training%20dataset%20as%20a%20reference." target="_blank">this link</a> on Analytics Vidhya,
+				written by Tavish Srivastava.</p>
+			<p>Note: For the best experience, please use a large screen if possible.</p>
+		</h4>
+	</header>
+		<main>
+			<a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vTIGJviCQ15gTBWnbek9AUbso_pIqrq7tPyz9Vgg8BZSQDCZaTQSn0DM7Xk8vLw51_xQ2DrAkR8ofL1/pub?output=csv" target="_blank" id = "links">Here is the dataset</a>
+			<form action='/predict' method="post" style ='display:inline-block;'>
+			<ul> 
+	  			<li> 
+	  				<label for="x_coord" id="x_coord">Please select the x coordinate of the point that you want to classify</label>
+	  				<div class="slidecontainer" name = "x_coord">
+					  <input type="range" min="0" max="300" name = "x_coord_val" value="{{x_coord_val}}" class="slider" id="x_coord" oninput="rangeValueA.innerText = this.value"> <p id="rangeValueA">{{x_coord_val}}</p>
+					</div>
+				</il>
+				<li>
+					<label for="length_of_stay" id="y_coord">Please select the y coordinate of the point that you want to classify</label>
+	  				<div class="slidecontainer" name = "y_coord">
+					  <input type="range" min="0" max="300" value="{{y_coord_val}}" name = "y_coord_val" class="slider" id="y_coord" oninput="rangeValueB.innerText = this.value"> <p id="rangeValueB">{{y_coord_val}}</p>
+					</div>
+				</li>
+
+				<li>
+					<label for="want_bag" id="k_value">How many neighbours (k) do you want</label>
+					<select id="kvalue" name="kvalue">
+					{% for each in k_opt %}
+						{% if each == k_val %}
+                    		<option value="{{each}}" selected = "true">{{each}}</option>
+                		{% else %}
+                   			 <option value="{{each}}">{{each}}</option>
+						{% endif %}
+           			{% endfor %}
+					</select>
+				</li> 
+	
+				<li>
+					<label for="percentage" id="percentage">How many percentage of training data do you want</label>
+	  				<div class="slidecontainer">
+					  <input type="range" min="50" max="85" name = "percentage_val" value="{{percentage_val}}" class="slider" id="percentage" oninput="rangeValueC.innerText = this.value"> <p id="rangeValueC">{{percentage_val}}</p>
+					</div>
+				</li>
+			</ul>
+			<button type="submit" id="btn1" style ='display:inline-block;'>Predict</button>
+		</form>
+
+		<form action='/' method="post">
+			<button type="submit" id="btn2">Clear</button>
+		</form>
+		<p id = "conclusion">{{pred}}</p>
+		<img id ="graph" src="data:image/svg+xml;base64,{{plot_graph}}" alt="Seaborn Plot" class="center"> 
+		<section>
+			<ul>
+				<li id = "performance" style="{% if hide_image %}display:none;{% endif %}">Performance of Training Set</li>
+				<li id = "performance" style="{% if hide_image %}display:none;{% endif %}">Performance of Testing Set</li>
+			</ul>
+		</section>
+		<section>
+			<img src="data:image/png;base64,{{confuse_matrix_train}}" 
+			style="{% if hide_image %}display:none;{% endif %}" id ="matrix">
+			<img src="data:image/png;base64,{{confuse_matrix_test}}" 
+			style="{% if hide_image %}display:none;{% endif %}" id ="matrix">
+		</section>
+		<section>
+			{{train_report_html | safe}}
+			{{test_report_html | safe}}
+		</section>
+		</main>
+		<footer>Thanks for reading! I hope you enjoy!</footer>
+</body>
+
+</html>
