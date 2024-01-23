@@ -17,7 +17,7 @@ plt.switch_backend('Agg')
 #Some global data and the dataset
 k_values = [i for i in range(3, 13)]
 
-data = pd.read_csv(datapoints.csv") #Use your own path
+data = pd.read_csv("datapoints.csv") #Use your own path
 
 #Calculate distance
 def cal_distance(pointA, pointB):
